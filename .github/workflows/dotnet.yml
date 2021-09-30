@@ -23,7 +23,7 @@ jobs:
       run: dotnet build "Portfolio/BlazorServerWebApplication/BlazorServerWebApplication.csproj" --configuration Release
     - name: Publish Blazor Server using dotnet 
       #create Blazor Server dist output folder in the project directory
-      run: dotnet publish -c Release --no-build -o publishoutput # Don't build again, just publish
+      run: dotnet publish "Portfolio/BlazorServerWebApplication/BlazorServerWebApplication.csproj" -c Release --no-build -o publishoutput # Don't build again, just publish
     - name: Publish generated Blazor Server to Netlify
       uses: netlify/actions/cli@master #uses Netlify Cli actions
       env: # These are the environment variables added in GitHub Secrets for this repo
