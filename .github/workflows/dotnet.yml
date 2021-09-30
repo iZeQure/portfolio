@@ -22,16 +22,13 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release 
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      
-    - name: Build with dotnet
-      run: dotnet build --configuration Release 
-    - name: Publish Blazor webassembly using dotnet 
+    - name: Publish Blazor Server using dotnet 
       #create Blazor Server dist output folder in the project directory
       run: dotnet publish -c Release --no-build -o publishoutput # Don't build again, just publish
-    - name: Publish generated Blazor webassembly to Netlify
+    - name: Publish generated Blazor Server to Netlify
       uses: netlify/actions/cli@master #uses Netlify Cli actions
       env: # These are the environment variables added in GitHub Secrets for this repo
           NETLIFY_AUTH_TOKEN: ${{ secrets.PORTFOLIO_AUTH_TOKEN }}
