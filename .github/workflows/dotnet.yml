@@ -1,0 +1,32 @@
+# Workflow Name
+name: Portfolio .NET
+
+# Action on which the workflow runs. Can be push, pull_request, page_build, or many others
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Build
+      run: dotnet build "Portfolio/BlazorWebAssemblyApplication/BlazorWebAssemblyApplication.csproj" --configuration Release
+    - name: Publish Blazor Web App using dotnet 
+      #create Blazor Web App dist output folder in the project directory
+      run: dotnet publish "Portfolio/BlazorWebAssemblyApplication/BlazorWebAssemblyApplication.csproj" -c Release --no-build -o webapp # Don't build again, just publish
+    - name: Publish generated Blazor Web App to Netlify
+      uses: netlify/actions/cli@master #uses Netlify Cli actions
+      env: # These are the environment variables added in GitHub Secrets for this repo
+          NETLIFY_AUTH_TOKEN: ${{ secrets.PORTFOLIO_NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_API_SITE_ID }}
+      with:
+          args: deploy --dir=webapp/wwwroot --prod #push this folder to Netlify
+          secrets: '["PORTFOLIO_NETLIFY_AUTH_TOKEN", "NETLIFY_API_SITE_ID"]' 
