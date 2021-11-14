@@ -1,0 +1,57 @@
+﻿@inject IJSRuntime JS
+@inject NavigationManager Nav
+
+<div>
+    <label>
+        <select @bind="Culture">
+            @foreach (var culture in supportedLanguages)
+            {
+                <option value="@culture.Code">@culture.DisplayName</option>
+            }
+        </select>
+    </label>
+</div>
+
+@code {
+    private IJSObjectReference module;
+
+    private List<LanguageModel> supportedLanguages = new()
+    {
+        new LanguageModel { Code = "da-DK", DisplayName = "Dansk"},
+        new LanguageModel { Code = "en-US", DisplayName = "English (US)"},
+        new LanguageModel { Code = "en-GB", DisplayName = "English (UK)"}
+    };
+
+    private CultureInfo[] supportedCultures = new[]
+    {
+        new CultureInfo("en-US"),
+        new CultureInfo("da-DK"),
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/culture-settings.js");
+        }
+    }
+
+    private CultureInfo Culture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            try
+            {
+                if (CultureInfo.CurrentCulture != value)
+                {
+                    Task.Run(async () => await module.InvokeVoidAsync("setCulture", value.Name));
+
+                    Nav.NavigateTo(Nav.Uri, forceLoad: true);
+                }
+            }
+            // Ignore Exceptions
+            catch (Exception) { }
+        }
+    }
+}
