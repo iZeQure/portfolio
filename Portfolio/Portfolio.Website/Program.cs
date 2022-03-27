@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Globalization;
 using Microsoft.JSInterop;
 
-namespace BlazorWebAssemblyApplication
+namespace Portfolio.Website
 {
     public class Program
     {
@@ -25,15 +25,16 @@ namespace BlazorWebAssemblyApplication
                 opt.ResourcesPath = "Resources/Languages";
             });
 
-            var host = builder.Build();
+            WebAssemblyHost host = builder.Build();
 
             CultureInfo culture;
-            var js = host.Services.GetRequiredService<IJSRuntime>();
 
-            var module = await js.InvokeAsync<IJSObjectReference>("import", "./js/culture-settings.js");
-            var result = module is not null ? await module.InvokeAsync<string>("getCulture") : null;
+            IJSRuntime js = host.Services.GetRequiredService<IJSRuntime>();
 
-            if (result is not null)
+            IJSObjectReference cultureJsModule = await js.InvokeAsync<IJSObjectReference>("import", "./js/culture-settings.js");
+            string result = cultureJsModule is not null ? await cultureJsModule.InvokeAsync<string>("getCulture") : null;
+
+            if (result is not null && !string.IsNullOrEmpty(result))
             {
                 culture = new CultureInfo(result);
             }
@@ -41,7 +42,7 @@ namespace BlazorWebAssemblyApplication
             {
                 culture = new CultureInfo("en-US");
 
-                await module.InvokeVoidAsync("setCulture", "en-US");
+                await cultureJsModule.InvokeVoidAsync("setCulture", "en-US");
             }
 
             CultureInfo.DefaultThreadCurrentCulture = culture;

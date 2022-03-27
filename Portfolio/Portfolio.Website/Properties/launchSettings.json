@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "BlazorWebAssemblyApplication": {
+    "Portfolio.Website": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

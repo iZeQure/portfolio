@@ -22,12 +22,6 @@
         new LanguageModel { Code = "en-GB", DisplayName = "English (UK)"}
     };
 
-    private CultureInfo[] supportedCultures = new[]
-    {
-        new CultureInfo("en-US"),
-        new CultureInfo("da-DK"),
-    };
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -45,7 +39,7 @@
             {
                 if (CultureInfo.CurrentCulture != value)
                 {
-                    Task.Run(async () => await module.InvokeVoidAsync("setCulture", value.Name));
+                    _ = Task.Run(async () => await module.InvokeVoidAsync("setCulture", value.Name));
 
                     Nav.NavigateTo(Nav.Uri, forceLoad: true);
                 }
