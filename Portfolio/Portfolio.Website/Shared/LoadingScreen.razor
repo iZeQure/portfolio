@@ -1,0 +1,30 @@
+﻿@inject IStringLocalizer<LoadingScreen> Localizer
+
+@if (isLoaded)
+{
+    @ChildContent
+}
+else
+{
+    <div style="position:absolute; top:30vh; width:100%; text-align:center">
+        <h1>@Localizer["ApplicationTitle"]</h1>
+        <div style="display:flex; gap:10px; justify-content:center; align-items:center">
+            <div class="spinner-border" role="status"></div>
+            @Localizer["Message"]
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    bool isLoaded = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(4000);
+
+        isLoaded = true;
+    }
+}

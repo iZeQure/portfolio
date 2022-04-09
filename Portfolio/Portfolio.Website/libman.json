@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "chalk@5.0.1",
+      "destination": "wwwroot/libs/chalk/"
+    }
+  ]
+}
