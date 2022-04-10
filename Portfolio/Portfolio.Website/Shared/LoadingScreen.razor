@@ -1,4 +1,5 @@
 ﻿@inject IStringLocalizer<LoadingScreen> Localizer
+@inject IJSRuntime JS
 
 @if (isLoaded)
 {
@@ -6,9 +7,9 @@
 }
 else
 {
-    <div style="position:absolute; top:30vh; width:100%; text-align:center">
+    <div class="loading-container">
         <h1>@Localizer["ApplicationTitle"]</h1>
-        <div style="display:flex; gap:10px; justify-content:center; align-items:center">
+        <div class="loading-content">
             <div class="spinner-border" role="status"></div>
             @Localizer["Message"]
         </div>
@@ -16,15 +17,26 @@ else
 }
 
 @code {
+    private Random rnd = new(DateTime.Now.GetHashCode());
+    private bool isLoaded = false;
+    private Task<IJSObjectReference> storageModule;
+
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
-    bool isLoaded = false;
+    public Task<IJSObjectReference> StorageModule => storageModule ??= JS.InjectJSObjectReference("import", "./js/default-storage.js");
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(4000);
+        await InitializeDefaultStorage();
 
         isLoaded = true;
+    }
+
+    async Task InitializeDefaultStorage()
+    {
+        IJSObjectReference module = await StorageModule;
+
+        await module.InvokeVoidAsync("setDefaultTheme");
     }
 }

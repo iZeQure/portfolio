@@ -1,13 +1,18 @@
-﻿window.setTitle = (newTitle) => {
-    document.title = newTitle;
+﻿var helper = null;
+
+window.setMediaReference = (dotNetHelper) => {
+    helper = dotNetHelper;
 }
 
-window.setColorTheme = (isDarkTheme) => {
-    localStorage.setItem("dark-mode", isDarkTheme);
-}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+    const isDarkTheme = event.matches ? true : false;
 
-window.getColorTheme = () => {
-    var x = localStorage.getItem("dark-mode");
-
-    return x;
-}
+    try {
+        helper.invokeMethodAsync("SystemThemeChanged", isDarkTheme)
+            .then(data => {
+                console.info(`System theme was changed, website was updated!`);
+            });
+    } catch (e) {
+        console.error(`Failed to update website theme, on system changes.`);
+    }
+});

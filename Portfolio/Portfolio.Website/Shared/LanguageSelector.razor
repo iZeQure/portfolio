@@ -1,56 +1,6 @@
-﻿@inject IJSRuntime JS
-@inject NavigationManager Nav
-@inject IStringLocalizer<LanguageSelector> Localizer
-
-<select @bind="Culture" class="form-select form-select-sm" aria-label="@Localizer["CultureSelectAriaLabel"]">
-    @foreach (var culture in supportedLanguages)
+﻿<select class="form-select form-select-sm" aria-label="@Localizer["CultureSelectAriaLabel"]" @bind="Culture">
+    @foreach (var culture in supportedCultures)
     {
-        <option value="@culture.Code">@culture.DisplayName</option>
+        <option value="@culture.Name">@culture.ToString()</option>
     }
 </select>
-
-@code {
-    private IJSObjectReference module;
-
-    private List<LanguageModel> supportedLanguages;
-
-    protected override Task OnInitializedAsync()
-    {
-
-
-        supportedLanguages = new()
-            {
-                new LanguageModel { Code = "da-DK", DisplayName = "Dansk" },
-                new LanguageModel { Code = "en-US", DisplayName = "English" }
-            };
-
-        return Task.CompletedTask;
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/culture-settings.js");
-        }
-    }
-
-    private CultureInfo Culture
-    {
-        get => CultureInfo.CurrentCulture;
-        set
-        {
-            try
-            {
-                if (CultureInfo.CurrentCulture != value)
-                {
-                    _ = Task.Run(async () => await module.InvokeVoidAsync("setCulture", value.Name));
-
-                    Nav.NavigateTo(Nav.Uri, forceLoad: true);
-                }
-            }
-            // Ignore Exceptions
-            catch (Exception) { }
-        }
-    }
-}

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Globalization;
 using Microsoft.JSInterop;
+using Portfolio.Website.Extensions;
 
 namespace Portfolio.Website
 {
@@ -22,29 +23,24 @@ namespace Portfolio.Website
                 opt.ResourcesPath = "Resources/Languages";
             });
 
-            if (builder.HostEnvironment.IsDevelopment())
-            {
-
-            }
-
             WebAssemblyHost host = builder.Build();
 
             CultureInfo culture;
 
             IJSRuntime js = host.Services.GetRequiredService<IJSRuntime>();
 
-            IJSObjectReference cultureJsModule = await js.InvokeAsync<IJSObjectReference>("import", "./js/culture-settings.js");
+            IJSObjectReference cultureJsModule = await js.InjectJSObjectReference("import", "./js/culture-settings.js");
             string result = cultureJsModule is not null ? await cultureJsModule.InvokeAsync<string>("getCulture") : null;
 
             if (result is not null && !string.IsNullOrEmpty(result))
             {
-                culture = new CultureInfo(result);
+                culture = new CultureInfo(result, false);
             }
             else
             {
-                culture = new CultureInfo("en-US");
+                culture = new CultureInfo("en-US", false);
 
-                await cultureJsModule.InvokeVoidAsync("setCulture", "en-US");
+                await cultureJsModule.InvokeVoidAsync("setCulture", culture.Name);
             }
 
             CultureInfo.DefaultThreadCurrentCulture = culture;

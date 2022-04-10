@@ -5,6 +5,12 @@
 
 <p>
     <b>@Loc["CurrentCulture"]</b>: @CultureInfo.CurrentCulture
+
+    @foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.AllCultures))
+    {
+        string output = String.Format("Name: {0} DisplayName: {1} 2-Letter Name: {2} 3-Letter Name: {3}", ci.Name, ci.DisplayName, ci.TwoLetterISOLanguageName, ci.ThreeLetterISOLanguageName);
+        Console.WriteLine(output);
+    }
 </p>
 
 <h2>Greeting</h2>
@@ -18,6 +24,9 @@
 
     protected override void OnInitialized()
     {
+
         greeting = Loc["Greeting"];
     }
+
+    
 }

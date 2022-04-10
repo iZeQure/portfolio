@@ -1,4 +1,4 @@
-﻿const cultureStorageKey = "LanguageCode";
+﻿const cultureStorageKey = "browserLanguage";
 
 export function getCulture() {
     return window.localStorage[cultureStorageKey];
