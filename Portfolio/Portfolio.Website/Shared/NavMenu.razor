@@ -1,4 +1,4 @@
-﻿@inject IStringLocalizer<NavMenu> Loc
+﻿@inject IStringLocalizer<NavMenu> _loc
 
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">BlazorWebAssemblyApplication</a>
@@ -11,34 +11,34 @@
     <ul class="nav flex-column">
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> @Loc["Home"]
+                <span class="oi oi-home" aria-hidden="true"></span> @_loc["Home"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> @Loc["Counter"]
+                <span class="oi oi-plus" aria-hidden="true"></span> @_loc["Counter"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> @Loc["FetchData"]
+                <span class="oi oi-list-rich" aria-hidden="true"></span> @_loc["FetchData"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="culture">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> @Loc["Culture"]
+                <span class="oi oi-list-rich" aria-hidden="true"></span> @_loc["Culture"]
             </NavLink>
         </li>
     </ul>
 </div>
 
 @code {
-    private bool collapseNavMenu = true;
+    private bool _collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
-        collapseNavMenu = !collapseNavMenu;
+        _collapseNavMenu = !_collapseNavMenu;
     }
 }

@@ -1,4 +1,4 @@
-﻿const themeKey = 'darkTheme';
+﻿const themeKey = "darkTheme";
 
 export function setTheme(theme) {
     localStorage.setItem(themeKey, theme);

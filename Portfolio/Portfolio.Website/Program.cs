@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Portfolio.Website.Extensions;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Globalization;
-using Microsoft.JSInterop;
-using Portfolio.Website.Extensions;
 
 namespace Portfolio.Website
 {
@@ -16,35 +14,18 @@ namespace Portfolio.Website
             WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddLogging();
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddLocalization(opt =>
+            var services = builder.Services;
+
+            services.AddLogging();
+            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            services.AddLocalization(opt =>
             {
                 opt.ResourcesPath = "Resources/Languages";
             });
 
             WebAssemblyHost host = builder.Build();
 
-            CultureInfo culture;
-
-            IJSRuntime js = host.Services.GetRequiredService<IJSRuntime>();
-
-            IJSObjectReference cultureJsModule = await js.InjectJSObjectReference("import", "./js/culture-settings.js");
-            string result = cultureJsModule is not null ? await cultureJsModule.InvokeAsync<string>("getCulture") : null;
-
-            if (result is not null && !string.IsNullOrEmpty(result))
-            {
-                culture = new CultureInfo(result, false);
-            }
-            else
-            {
-                culture = new CultureInfo("en-US", false);
-
-                await cultureJsModule.InvokeVoidAsync("setCulture", culture.Name);
-            }
-
-            CultureInfo.DefaultThreadCurrentCulture = culture;
-            CultureInfo.DefaultThreadCurrentUICulture = culture;
+            await host.SetDefaultHostCulture();
 
             await host.RunAsync();
         }

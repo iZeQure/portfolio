@@ -1,10 +1,14 @@
-﻿var helper = null;
+﻿let helper = null;
 
 window.setMediaReference = (dotNetHelper) => {
     helper = dotNetHelper;
 }
 
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => {
+    if (helper == null) {
+        return;
+    }
+
     const isDarkTheme = event.matches ? true : false;
 
     try {

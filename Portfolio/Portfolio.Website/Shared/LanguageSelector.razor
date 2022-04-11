@@ -1,6 +1,6 @@
 ﻿<select class="form-select form-select-sm" aria-label="@Localizer["CultureSelectAriaLabel"]" @bind="Culture">
-    @foreach (var culture in supportedCultures)
+    @foreach (var culture in _supportedLanguages)
     {
-        <option value="@culture.Name">@culture.ToString()</option>
+        <option value=@culture.Code>@culture.DisplayName</option>
     }
 </select>

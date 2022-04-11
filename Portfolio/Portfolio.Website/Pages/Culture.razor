@@ -1,32 +1,23 @@
 ﻿@page "/culture"
-@inject IStringLocalizer<Culture> Loc
+@inject IStringLocalizer<Culture> _loc
 
 <h1>Culture Example</h1>
 
-<p>
-    <b>@Loc["CurrentCulture"]</b>: @CultureInfo.CurrentCulture
-
-    @foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.AllCultures))
-    {
-        string output = String.Format("Name: {0} DisplayName: {1} 2-Letter Name: {2} 3-Letter Name: {3}", ci.Name, ci.DisplayName, ci.TwoLetterISOLanguageName, ci.ThreeLetterISOLanguageName);
-        Console.WriteLine(output);
-    }
-</p>
+<p><b>@_loc["CurrentCulture"]</b>: @CultureInfo.CurrentCulture.Name - @CultureInfo.CurrentCulture.DisplayName</p>
+<p><b>@_loc["CurrentCulture"]</b>: @CultureInfo.CurrentUICulture.Name - @CultureInfo.CurrentUICulture.DisplayName</p>
+<p><b>@_loc["CurrentCulture"]</b>: @CultureInfo.CurrentUICulture.CompareInfo.Name - @CultureInfo.CurrentUICulture.EnglishName</p>
 
 <h2>Greeting</h2>
 
 <p>
-    @greeting
+    @_greeting
 </p>
 
 @code {
-    private string greeting;
+    private string _greeting;
 
     protected override void OnInitialized()
     {
-
-        greeting = Loc["Greeting"];
+        _greeting = _loc["Greeting"];
     }
-
-    
 }
