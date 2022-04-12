@@ -4,6 +4,7 @@ using Portfolio.Website.Extensions;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Portfolio.Website
 {
@@ -13,6 +14,8 @@ namespace Portfolio.Website
         {
             WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
+            builder.RootComponents.Add<HeadOutlet>("head::after");
+            //builder.RootComponents.Add<HeadOutlet>("head:after");
 
             var services = builder.Services;
 
