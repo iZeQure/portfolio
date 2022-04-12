@@ -3,6 +3,13 @@
 @inject IJSRuntime _js
 @inject IStringLocalizer<MainLayout> _localizer
 @inject ILogger<MainLayout> _logger
+@inject NavigationManager _navigation
+
+<HeadContent>
+    <FacebookMeta Title="@(_localizer["Title"])" Description="@(_localizer["Description"])" Url="@(_navigation.Uri)" />
+
+    <TwitterMeta Title="@(_localizer["Title"])" Description="@(_localizer["Description"])" Url="@(_navigation.Uri)" />
+</HeadContent>
 
 <div class="page @ColorThemeCssClass">
     <div class="sidebar">
