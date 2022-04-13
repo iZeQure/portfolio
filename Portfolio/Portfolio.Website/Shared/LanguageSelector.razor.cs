@@ -10,8 +10,10 @@ using Portfolio.Website.Models;
 
 namespace Portfolio.Website.Shared
 {
-    public partial class LanguageSelector : ComponentBase
+    public partial class LanguageSelector : ComponentBase, IDisposable
     {
+        private event EventHandler OnCultureChanged;
+
         [Inject] private IJSRuntime JsRuntime { get; set; }
         [Inject] private NavigationManager NavManager { get; set; }
         [Inject] private IStringLocalizer<LanguageSelector> Localizer { get; set; }
@@ -35,7 +37,7 @@ namespace Portfolio.Website.Shared
 
                     await module.InvokeVoidAsync("setCulture", value.Name);
 
-                    NavManager.NavigateTo(NavManager.Uri, true);
+                    OnCultureChanged?.Invoke(this, EventArgs.Empty);
                 });
             }
         }
@@ -45,6 +47,8 @@ namespace Portfolio.Website.Shared
 
         protected override async Task OnInitializedAsync()
         {
+            OnCultureChanged += RefreshPage;
+
             var danishCulture = Localizer["DanishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
             var englishCulture = Localizer["EnglishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
 
@@ -57,6 +61,16 @@ namespace Portfolio.Website.Shared
             var module = await CultureModule;
 
             Culture = new CultureInfo(await module.InvokeAsync<string>("getCulture"));
+        }
+
+        private void RefreshPage(object? sender, EventArgs e)
+        {
+            NavManager.NavigateTo(NavManager.Uri, true);
+        }
+
+        public void Dispose()
+        {
+            OnCultureChanged -= RefreshPage;
         }
     }
 }
