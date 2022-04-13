@@ -6,9 +6,11 @@
 @inject NavigationManager _navigation
 
 <HeadContent>
-    <FacebookMeta Title="@(_localizer["Title"])" Description="@(_localizer["Description"])" Url="@(_navigation.Uri)" />
+    <title>@(_localizer["Title"])</title>
 
-    <TwitterMeta Title="@(_localizer["Title"])" Description="@(_localizer["Description"])" Url="@(_navigation.Uri)" />
+    <FacebookMeta Title="@(_localizer["Title"])" Description="@(_localizer["Description"])" Url="@(_navigation.Uri)"/>
+
+    <TwitterMeta Title="@(_localizer["Title"])" Description="@(_localizer["Description"])" Url="@(_navigation.Uri)"/>
 </HeadContent>
 
 <div class="page @ColorThemeCssClass">
@@ -40,7 +42,7 @@
 </div>
 
 @code {
-    private bool _isDarkTheme = false;
+    private bool _isDarkTheme;
     private Task<IJSObjectReference> _themeModule;
     private Task<IJSObjectReference> _documentModule;
     private DotNetObjectReference<MainLayout> _objRef;
@@ -54,6 +56,7 @@
     {
         _objRef = DotNetObjectReference.Create(this);
         await _js.InvokeVoidAsync("setMediaReference", _objRef);
+        await _js.InvokeVoidAsync("setDocumentLangCode");
 
         await GetTheme();
 
