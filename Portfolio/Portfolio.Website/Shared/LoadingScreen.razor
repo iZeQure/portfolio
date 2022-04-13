@@ -1,0 +1,42 @@
+﻿@inject IStringLocalizer<LoadingScreen> _localizer
+@inject IJSRuntime _js
+
+@if (_isLoaded)
+{
+    @ChildContent
+}
+else
+{
+    <div class="loading-container">
+        <h1>@_localizer["ApplicationTitle"]</h1>
+        <div class="loading-content">
+            <div class="spinner-border" role="status"></div>
+            @_localizer["Message"]
+        </div>
+    </div>
+}
+
+@code {
+    private Random _rnd = new(DateTime.Now.GetHashCode());
+    private bool _isLoaded = false;
+    private Task<IJSObjectReference> _storageModule;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    public Task<IJSObjectReference> StorageModule => _storageModule ??= _js.InjectJsObjectReference("import", "./js/default-storage.js");
+
+    protected override async Task OnInitializedAsync()
+    {
+        await InitializeDefaultStorage();
+
+        _isLoaded = true;
+    }
+
+    async Task InitializeDefaultStorage()
+    {
+        IJSObjectReference module = await StorageModule;
+
+        await module.InvokeVoidAsync("setDefaultTheme");
+    }
+}
