@@ -1,3 +1,9 @@
+[build]
+publish = "prod/wwwroot"
+
+command = "dotnet workload install wasm-tools"
+command = "dotnet publish 'Portfolio/Portfolio.Website/Portfolio.Website.csproj' -c Release -o prod"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
