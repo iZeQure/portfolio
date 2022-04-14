@@ -6,6 +6,7 @@
     --highlight: #f7f7f7;
     --highlight-2: #e2e3e5;
     --link: #0366d6;
+    --icon-color: var(--font-color);
 }
 
 .dark-theme {

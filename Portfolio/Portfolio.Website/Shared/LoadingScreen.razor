@@ -1,4 +1,5 @@
-﻿@inject IStringLocalizer<LoadingScreen> _localizer
+﻿@inherits ThemeLayoutModule
+@inject IStringLocalizer<LoadingScreen> _localizer
 @inject IJSRuntime _js
 
 @if (_isLoaded)
@@ -7,7 +8,7 @@
 }
 else
 {
-    <div class="loading-container">
+    <div class="loading-container @(ColorThemeCssClass)">
         <h1>@_localizer["ApplicationTitle"]</h1>
         <div class="loading-content">
             <div class="spinner-border" role="status"></div>
@@ -28,6 +29,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        await GetTheme();
         await InitializeDefaultStorage();
 
         _isLoaded = true;
