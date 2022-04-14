@@ -15,16 +15,11 @@ namespace Portfolio.Website
             WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
-            //builder.RootComponents.Add<HeadOutlet>("head:after");
 
-            var services = builder.Services;
-
-            services.AddLogging();
-            services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            services.AddLocalization(opt =>
-            {
-                opt.ResourcesPath = "Resources/Languages";
-            });
+            builder.Services
+                .AddLogging()
+                .AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) })
+                .AddLocalization(options => options.ResourcesPath = "Resources/Languages");
 
             WebAssemblyHost host = builder.Build();
 

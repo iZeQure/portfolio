@@ -5,7 +5,7 @@ export function setTheme(theme) {
 }
 
 export function getTheme() {
-    var theme = localStorage.getItem(themeKey);
+    const theme = localStorage.getItem(themeKey);
 
     return theme;
 }

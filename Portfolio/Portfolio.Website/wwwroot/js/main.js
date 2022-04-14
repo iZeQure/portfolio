@@ -4,21 +4,6 @@ window.setMediaReference = (dotNetHelper) => {
     helper = dotNetHelper;
 }
 
-window.setDocumentLangCode = () => {
-    const culture = localStorage.getItem("culture");
-
-    if (culture == null) {
-        console.warn("Culture settings was null, setting default language to 'en'.");
-
-        document.documentElement.setAttribute("lang", "en");
-        return;
-    }
-
-    const languageCode = culture.split("-")[0];
-
-    document.documentElement.setAttribute("lang", languageCode);
-}
-
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => {
     if (helper == null) {
         return;
@@ -35,4 +20,3 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", eve
         console.error(`Failed to update website theme, on system changes.`);
     }
 });
-
