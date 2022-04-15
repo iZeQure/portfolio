@@ -5,11 +5,12 @@
 @inject NavigationManager _navigation
 
 <HeadContent>
-    <title>@(_localizer["Title"])</title>
-
-    <FacebookMeta Title="@(_localizer["Title"])" Description="@(_localizer["Description"])" Url="@(_navigation.Uri)"/>
-
-    <TwitterMeta Title="@(_localizer["Title"])" Description="@(_localizer["Description"])" Url="@(_navigation.Uri)"/>
+    <PageTitle>@Title</PageTitle>
+    <title>@Title</title>
+    
+    <GoogleSearchEngineMeta Title="@Title" Description="@Description" />
+    <FacebookMeta Title="@(Title)" Description="@(Description)" Url="@(Url)"/>
+    <TwitterMeta Title="@(Title)" Description="@(Description)" Url="@(Url)"/>
 </HeadContent>
 
 <div class="page @(ColorThemeCssClass)">
@@ -44,6 +45,9 @@
     private Task<IJSObjectReference> _documentModule;
 
     private Task<IJSObjectReference> DocumentModule => _documentModule ??= _js.InjectJsObjectReference("import", "./js/document-settings.js");
+    private string Title => _localizer["Title"];
+    private string Description => _localizer["Description"];
+    private string Url => _navigation.Uri;
 
     protected override async Task OnInitializedAsync()
     {

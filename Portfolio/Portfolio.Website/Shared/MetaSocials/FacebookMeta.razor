@@ -1,8 +1,16 @@
 ﻿@inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
 
-@*<meta property="fb:app_id" content="123456789">*@
+
+<!-- Facebook Meta Tags -->
 <meta property="og:url" content="@(Url)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="@(Title)">
+<meta property="og:description" content="@(Description)">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/37138833?s=400&v=4">
+<meta property="og:image:alt" content="A picture of the author's GitHub account.'">
+
+@*<meta property="og:url" content="">
 <meta property="og:type" content="website">
 <meta property="og:title" content="@(Title)">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/37138833?s=400&v=4">
@@ -10,7 +18,7 @@
 <meta property="og:description" content="@(Description)">
 <meta property="og:site_name" content="@(Title)">
 <meta property="og:locale" content="@(_locale)">
-<meta property="article:author" content="">
+<meta property="article:author" content="">*@
 
 @code
 {
@@ -29,8 +37,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var module = await LocaleModule;
+        //var module = await LocaleModule;
 
-        _locale = await module.InvokeAsync<string>("getCulture");
+        //_locale = await module.InvokeAsync<string>("getCulture");
     }
 }
