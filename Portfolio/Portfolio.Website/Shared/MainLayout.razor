@@ -5,12 +5,11 @@
 @inject NavigationManager _navigation
 
 <HeadContent>
-    <PageTitle>@Title</PageTitle>
-    <title>@Title</title>
+    <PageTitle>@Name</PageTitle>
     
-    <GoogleSearchEngineMeta Title="@Title" Description="@Description" />
-    <FacebookMeta Title="@(Title)" Description="@(Description)" Url="@(Url)"/>
-    <TwitterMeta Title="@(Title)" Description="@(Description)" Url="@(Url)"/>
+    <GoogleSearchEngineMeta Title="@Name" Description="@Description" />
+    <FacebookMeta Title="@(Name)" Description="@(Description)" Url="@(Url)"/>
+    <TwitterMeta Title="@(Name)" Description="@(Description)" Url="@(Url)"/>
 </HeadContent>
 
 <div class="page @(ColorThemeCssClass)">
@@ -45,15 +44,13 @@
     private Task<IJSObjectReference> _documentModule;
 
     private Task<IJSObjectReference> DocumentModule => _documentModule ??= _js.InjectJsObjectReference("import", "./js/document-settings.js");
-    private string Title => _localizer["Title"];
+    private string Name => _localizer["Name"];
     private string Description => _localizer["Description"];
     private string Url => _navigation.Uri;
 
     protected override async Task OnInitializedAsync()
     {
         await GetTheme();
-
-        await SetLocalizerTitle();
         await SetDocumentLangCode();
     }
 
@@ -76,7 +73,7 @@
         {
             var module = await DocumentModule;
 
-            string title = _localizer["Title"];
+            string title = _localizer["Name"];
             await module.InvokeVoidAsync("setDocumentTitle", title);
         }
         catch (Exception)

@@ -1,3 +1,9 @@
 ﻿@page "/"
+@inject IStringLocalizer<MainLayout> MainLayoutLoc
+@inject IStringLocalizer<Index> Loc
+
+<HeadContent>
+    <PageTitle>@Loc["Title"] - @MainLayoutLoc["Name"]</PageTitle>
+</HeadContent>
 
 Welcome to your new app.

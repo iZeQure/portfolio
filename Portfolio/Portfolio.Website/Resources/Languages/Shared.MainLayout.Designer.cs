@@ -61,11 +61,11 @@ namespace Portfolio.Website.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Portfolio.
+        ///   Looks up a localized string similar to Rosenvinge&apos;s Portfolio.
         /// </summary>
-        public static string Title {
+        public static string Name {
             get {
-                return ResourceManager.GetString("Title", resourceCulture);
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
     }

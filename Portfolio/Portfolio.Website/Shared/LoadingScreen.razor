@@ -1,5 +1,6 @@
 ﻿@inherits ThemeLayoutModule
-@inject IStringLocalizer<LoadingScreen> _localizer
+@inject IStringLocalizer<MainLayout> MainLayoutLoc
+@inject IStringLocalizer<LoadingScreen> Loc
 @inject IJSRuntime _js
 
 @if (_isLoaded)
@@ -8,11 +9,15 @@
 }
 else
 {
+    <HeadContent>
+        <PageTitle>@Loc["Message"] - @MainLayoutLoc["Name"]</PageTitle>
+    </HeadContent>
+
     <div class="loading-container @(ColorThemeCssClass)">
-        <h1>@_localizer["ApplicationTitle"]</h1>
+        <h1>@MainLayoutLoc["Name"]</h1>
         <div class="loading-content">
             <div class="spinner-border" role="status"></div>
-            @_localizer["Message"]
+            @Loc["Message"]
         </div>
     </div>
 }
