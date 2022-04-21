@@ -61,7 +61,7 @@ namespace Portfolio.Website.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rosenvinge&apos;s Portfolio.
+        ///   Looks up a localized string similar to Rosenvinge Portfolio.
         /// </summary>
         public static string Name {
             get {

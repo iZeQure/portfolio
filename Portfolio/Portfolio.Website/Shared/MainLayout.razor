@@ -4,9 +4,7 @@
 @inject ILogger<MainLayout> _logger
 @inject NavigationManager _navigation
 
-<HeadContent>
-    <PageTitle>@Name</PageTitle>
-    
+<HeadContent>    
     <GoogleSearchEngineMeta Title="@Name" Description="@Description" />
     <FacebookMeta Title="@(Name)" Description="@(Description)" Url="@(Url)"/>
     <TwitterMeta Title="@(Name)" Description="@(Description)" Url="@(Url)"/>

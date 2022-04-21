@@ -61,6 +61,15 @@ namespace Portfolio.Website.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rosenvinge Portfolio.
+        /// </summary>
+        public static string BrandTitle {
+            get {
+                return ResourceManager.GetString("BrandTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Counter.
         /// </summary>
         public static string Counter {
