@@ -19,7 +19,6 @@ else
             <div class="spinner-border" role="status"></div>
             <span>@Loc["Message"]</span>
         </div>
-        <span>@_message . . .</span>
     </div>
 }
 
@@ -27,7 +26,6 @@ else
     private Random _rnd = new(DateTime.Now.GetHashCode());
     private Task<IJSObjectReference> _storageModule;
     private bool _isLoaded = false;
-    private string _message;
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
@@ -43,10 +41,6 @@ else
 
     private async Task ConfigureDefaultTheme()
     {
-        _message = "Configuring default theme";
-
-        await Task.Delay(1000);
-
         IJSObjectReference module = await StorageModule;
 
         await module.InvokeVoidAsync("setDefaultTheme");

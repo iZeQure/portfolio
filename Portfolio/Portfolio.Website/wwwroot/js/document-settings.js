@@ -1,12 +1,4 @@
-﻿export function setDocumentTitle(title) {
-    if (title === undefined) {
-        return;
-    }
-
-    document.title = title;
-}
-
-export function setDocumentLangCode() {
+﻿export function setDocumentLangCode() {
     const culture = localStorage.getItem("culture");
 
     if (culture == null) {

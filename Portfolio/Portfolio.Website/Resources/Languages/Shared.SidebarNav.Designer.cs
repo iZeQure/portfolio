@@ -22,14 +22,14 @@ namespace Portfolio.Website.Resources.Languages {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Pages_Culture {
+    public class Shared_SidebarNav {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Pages_Culture() {
+        internal Shared_SidebarNav() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Portfolio.Website.Resources.Languages {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Portfolio.Website.Resources.Languages.Pages.Culture", typeof(Pages_Culture).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Portfolio.Website.Resources.Languages.Shared.SidebarNav", typeof(Shared_SidebarNav).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,38 @@ namespace Portfolio.Website.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current Culture.
+        ///   Looks up a localized string similar to Rosenvinge Portfolio.
         /// </summary>
-        public static string CurrentCulture {
+        public static string BrandTitle {
             get {
-                return ResourceManager.GetString("CurrentCulture", resourceCulture);
+                return ResourceManager.GetString("BrandTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hello, world!.
+        ///   Looks up a localized string similar to Counter.
         /// </summary>
-        public static string Greeting {
+        public static string Counter {
             get {
-                return ResourceManager.GetString("Greeting", resourceCulture);
+                return ResourceManager.GetString("Counter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weather Forecast.
+        /// </summary>
+        public static string FetchData {
+            get {
+                return ResourceManager.GetString("FetchData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
             }
         }
     }
