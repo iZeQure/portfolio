@@ -1,6 +1,7 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 :root {
+    color-scheme: normal;
     --background: white;
     --font-color: black;
     --highlight: #f7f7f7;
@@ -10,6 +11,7 @@
 }
 
 .dark-theme {
+    color-scheme: dark;
     --background: #2d2d2d;
     --font-color: white;
     --highlight: #393939;

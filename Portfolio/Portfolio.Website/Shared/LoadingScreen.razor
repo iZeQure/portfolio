@@ -17,15 +17,17 @@ else
         <h1>@MainLayoutLoc["Name"]</h1>
         <div class="loading-content">
             <div class="spinner-border" role="status"></div>
-            @Loc["Message"]
+            <span>@Loc["Message"]</span>
         </div>
+        <span>@_message . . .</span>
     </div>
 }
 
 @code {
     private Random _rnd = new(DateTime.Now.GetHashCode());
-    private bool _isLoaded = false;
     private Task<IJSObjectReference> _storageModule;
+    private bool _isLoaded = false;
+    private string _message;
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
@@ -34,14 +36,17 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await GetTheme();
-        await InitializeDefaultStorage();
+        await ConfigureDefaultTheme();
 
         _isLoaded = true;
     }
 
-    async Task InitializeDefaultStorage()
+    private async Task ConfigureDefaultTheme()
     {
+        _message = "Configuring default theme";
+
+        await Task.Delay(1000);
+
         IJSObjectReference module = await StorageModule;
 
         await module.InvokeVoidAsync("setDefaultTheme");
