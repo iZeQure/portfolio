@@ -14,9 +14,9 @@ namespace Portfolio.Website.Shared.Modules
         
         private Task<IJSObjectReference> _themeModule;
 
-        protected string ColorThemeCssClass => IsDarkTheme ? "dark-theme" : null;
-
         private Task<IJSObjectReference> Module => _themeModule ??= JsRuntime.InjectJsObjectReference("import", "./js/theme-settings.js");
+
+        protected string ColorThemeCssClass => IsDarkTheme ? "dark-theme" : null;
 
         protected bool IsDarkTheme { get; private set; }
 
@@ -33,6 +33,8 @@ namespace Portfolio.Website.Shared.Modules
 
                 var module = await Module;
                 await module.InvokeVoidAsync("setTheme", IsDarkTheme);
+
+                StateHasChanged();
             }
             catch (Exception)
             {

@@ -1,5 +1,12 @@
-﻿.page {
-    position: relative;
-    display: flex;
-    flex-direction: row;
+﻿main {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    gap: .5em;
+}
+
+.icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    color: var(--icon-color);
 }

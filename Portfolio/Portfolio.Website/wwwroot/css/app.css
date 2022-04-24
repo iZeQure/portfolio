@@ -7,11 +7,7 @@ html {
 body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
-}
-
-.icon svg {
-    height: 1.25rem;
-    fill: var(--icon-color);
+    transition: background-color 1s;
 }
 
 .valid.modified:not([type=checkbox]) {
