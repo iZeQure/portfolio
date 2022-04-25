@@ -1,5 +1,6 @@
 ﻿@inherits ThemeLayoutModule
-@inject IStringLocalizer<LoadingScreen> _localizer
+@inject IStringLocalizer<MainLayout> MainLayoutLoc
+@inject IStringLocalizer<LoadingScreen> Loc
 @inject IJSRuntime _js
 
 @if (_isLoaded)
@@ -8,19 +9,23 @@
 }
 else
 {
+    <HeadContent>
+        <PageTitle>@Loc["Message"] - @MainLayoutLoc["Name"]</PageTitle>
+    </HeadContent>
+
     <div class="loading-container @(ColorThemeCssClass)">
-        <h1>@_localizer["ApplicationTitle"]</h1>
+        <h1>@MainLayoutLoc["Name"]</h1>
         <div class="loading-content">
             <div class="spinner-border" role="status"></div>
-            @_localizer["Message"]
+            <span>@Loc["Message"]</span>
         </div>
     </div>
 }
 
 @code {
     private Random _rnd = new(DateTime.Now.GetHashCode());
-    private bool _isLoaded = false;
     private Task<IJSObjectReference> _storageModule;
+    private bool _isLoaded = false;
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
@@ -29,13 +34,12 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await GetTheme();
-        await InitializeDefaultStorage();
+        await ConfigureDefaultTheme();
 
         _isLoaded = true;
     }
 
-    async Task InitializeDefaultStorage()
+    private async Task ConfigureDefaultTheme()
     {
         IJSObjectReference module = await StorageModule;
 

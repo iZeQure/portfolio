@@ -1,0 +1,27 @@
+﻿<div class="sidebar">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
+        <a href="/" class="navbar-brand d-flex align-items-center mb-3 mb-md-0 g-0 me-md-auto text-white text-decoration-none">
+            @*<svg class="bi me-2" width="40" height="32"><use xlink:href="assets/icons/sprite-icons.svg#bootstrap" /></svg>*@
+            <span class="fs-1 icon me-2"><i class="fa-solid fa-code"></i></span>
+            <span class="fs-4 navbar-text">@(GetSiteName)</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            @foreach (var nav in NavigationLinks)
+            {
+                <li class="nav-link">
+                    <NavLink Match=@nav.LinkMatch class="nav-link" href=@nav.Uri>
+                        <span class="me-2">@nav.HtmlIcon</span>
+                        @nav.DisplayText
+                    </NavLink>
+                </li>
+            }
+        </ul>
+        <hr>
+        <div class="hstack gap-3">
+            <LanguageSelector />
+            <div class="vr"></div>
+            @ChildContent
+        </div>
+    </div>
+</div>

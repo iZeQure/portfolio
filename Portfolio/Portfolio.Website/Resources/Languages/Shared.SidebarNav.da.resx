@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BrandTitle" xml:space="preserve">
+    <value>Rosenvinge Portefølje</value>
+  </data>
   <data name="Counter" xml:space="preserve">
-    <value>Counter</value>
+    <value>Tæller</value>
   </data>
   <data name="Culture" xml:space="preserve">
-    <value>Culture</value>
+    <value>Kultur</value>
   </data>
   <data name="FetchData" xml:space="preserve">
-    <value>Weather Forecast</value>
+    <value>Vejrudsigt</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Hjem</value>
   </data>
 </root>

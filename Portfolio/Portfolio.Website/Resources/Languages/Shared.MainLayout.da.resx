@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title" xml:space="preserve">
-    <value>Min Portefølje</value>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Skift til Mørkt tema</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Skift til Lyst tema</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Rosenvinge Portefølje</value>
     <comment>The title of the browser tab.</comment>
   </data>
 </root>

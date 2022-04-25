@@ -61,11 +61,29 @@ namespace Portfolio.Website.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Portfolio.
+        ///   Looks up a localized string similar to Turn on Dark theme.
         /// </summary>
-        public static string Title {
+        public static string DarkTheme {
             get {
-                return ResourceManager.GetString("Title", resourceCulture);
+                return ResourceManager.GetString("DarkTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn on Light theme.
+        /// </summary>
+        public static string LightTheme {
+            get {
+                return ResourceManager.GetString("LightTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rosenvinge Portfolio.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
     }

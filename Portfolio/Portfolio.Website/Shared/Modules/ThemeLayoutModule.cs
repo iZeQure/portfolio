@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using Portfolio.Website.Extensions;
@@ -9,16 +10,21 @@ namespace Portfolio.Website.Shared.Modules
 {
     public class ThemeLayoutModule : LayoutComponentBase
     {
+        [Inject] private IStringLocalizer<MainLayout> LayoutLocalization { get; set; }
         [Inject] private ILogger<ThemeLayoutModule> Logger { get; set; }
         [Inject] private IJSRuntime JsRuntime { get; set; }
-        
-        private Task<IJSObjectReference> _themeModule;
 
-        protected string ColorThemeCssClass => IsDarkTheme ? "dark-theme" : null;
+        private Task<IJSObjectReference> _themeModule;
+        private bool _isDarkTheme;
 
         private Task<IJSObjectReference> Module => _themeModule ??= JsRuntime.InjectJsObjectReference("import", "./js/theme-settings.js");
 
-        protected bool IsDarkTheme { get; private set; }
+        protected bool IsDarkTheme { get => _isDarkTheme; private set => _isDarkTheme = value; }
+
+        protected string ColorThemeCssClass => _isDarkTheme ? "dark-theme" : null;
+
+        protected string TooltipTitle =>
+            _isDarkTheme ? LayoutLocalization["LightTheme"] : LayoutLocalization["DarkTheme"];
 
         protected override async Task OnInitializedAsync()
         {
@@ -29,14 +35,15 @@ namespace Portfolio.Website.Shared.Modules
         {
             try
             {
-                IsDarkTheme = !IsDarkTheme;
+                _isDarkTheme = !_isDarkTheme;
 
                 var module = await Module;
-                await module.InvokeVoidAsync("setTheme", IsDarkTheme);
+                await module.InvokeVoidAsync("setTheme", _isDarkTheme);
+                await module.InvokeVoidAsync("updateTooltip");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Logger.LogError("Error occurred while toggling theme.");
+                Logger.LogError("Error occurred while toggling theme: {Message}", ex.Message);
             }
         }
 
@@ -48,7 +55,7 @@ namespace Portfolio.Website.Shared.Modules
 
                 var value = await module.InvokeAsync<string>("getTheme");
 
-                IsDarkTheme = Convert.ToBoolean(value);
+                _isDarkTheme = Convert.ToBoolean(value);
             }
             catch (Exception)
             {
@@ -61,10 +68,10 @@ namespace Portfolio.Website.Shared.Modules
         {
             try
             {
-                IsDarkTheme = value;
+                _isDarkTheme = value;
 
                 var module = await Module;
-                await module.InvokeVoidAsync("setTheme", IsDarkTheme);
+                await module.InvokeVoidAsync("setTheme", _isDarkTheme);
 
                 StateHasChanged();
             }

@@ -61,15 +61,6 @@ namespace Portfolio.Website.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My Portfolio.
-        /// </summary>
-        public static string ApplicationTitle {
-            get {
-                return ResourceManager.GetString("ApplicationTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Initializing the application....
         /// </summary>
         public static string Message {
