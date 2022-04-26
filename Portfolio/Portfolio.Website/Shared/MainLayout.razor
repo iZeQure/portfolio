@@ -39,6 +39,8 @@
     {
         await GetTheme();
         await SetDocumentLangCode();
+
+        await base.OnInitializedAsync();
     }
 
     async Task SetDocumentLangCode()
