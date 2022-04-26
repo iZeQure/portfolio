@@ -16,7 +16,7 @@ namespace Portfolio.Website.Shared
 
         [Inject] private IJSRuntime JsRuntime { get; set; }
         [Inject] private NavigationManager NavManager { get; set; }
-        [Inject] private IStringLocalizer<LanguageSelector> Localizer { get; set; }
+        [Inject] private IStringLocalizer<LanguageSelector> Localization { get; set; }
 
         private Task<IJSObjectReference> _cultureModule;
 
@@ -49,8 +49,8 @@ namespace Portfolio.Website.Shared
         {
             OnCultureChanged += RefreshPage;
 
-            var danishCulture = Localizer["DanishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
-            var englishCulture = Localizer["EnglishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+            var danishCulture = Localization["DanishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
+            var englishCulture = Localization["EnglishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
 
             _supportedLanguages  = new List<LanguageCodes>
             {
