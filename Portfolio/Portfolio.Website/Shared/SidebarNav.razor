@@ -20,7 +20,38 @@
         <div class="hstack gap-1 gap-md-2 flex-column flex-md-row justify-content-start justify-content-md-around p-1 p-md-0">
             <LanguageSelector />
             <div class="vr d-none d-md-block"></div>
-            <div class="order-first order-md-last">@ChildContent</div>
+            <div class="gap-2 gap-md-1 order-first order-md-last d-flex flex-row flex-md-column align-items-center feature-icons">
+                @ChildContent
+                <span class="icon" data-bs-toggle="modal" data-bs-target="#feedbackModal"><i class="fa-solid fa-bug"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="feedbackModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form name="feedback" method="POST" data-netlify="true">>
+                    <p>
+                        <label>Your Name: <input type="text" name="name" /></label>
+                    </p>
+                    <p>
+                        <label>Message: <textarea name="message"></textarea></label>
+                    </p>
+                    <p>
+                        <button type="submit">Send</button>
+                    </p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
         </div>
     </div>
 </div>
