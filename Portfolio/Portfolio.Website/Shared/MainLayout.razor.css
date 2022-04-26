@@ -5,8 +5,9 @@
     gap: .5em;
 }
 
-.icon {
-    height: 1.5rem;
-    width: 1.5rem;
-    color: var(--icon-color);
+.theme-toggle:hover .icon {
+    cursor: pointer;
+    color: var(--icon-color__hover);
+    animation-timing-function: cubic-bezier(0.8, 0.03, 0.73, 0.97);
+    animation-delay: .5s;
 }

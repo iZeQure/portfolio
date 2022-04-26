@@ -7,7 +7,18 @@ html {
 body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
-    transition: background-color 1s;
+    transition: all 1s;
+}
+
+.icon {
+    font-size: 1.25rem;
+    color: var(--icon-color);
+    transition: all 1s cubic-bezier(0.8, 0.03, 0.73, 0.97);
+}
+
+.vr,
+hr {
+    color: var(--font-color);
 }
 
 .valid.modified:not([type=checkbox]) {

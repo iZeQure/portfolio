@@ -6,16 +6,28 @@
     overflow-y: hidden;
 }
 
-.navbar-brand:hover .icon {
-    transition: all 1s cubic-bezier(0.8, 0.03, 0.73, 0.97);
-    color: initial;
+.sidebar .bg-dark {
+    background-color: var(--background) !important;
+}
+
+.sidebar .navbar-text {
+    color: var(--font-color);
+}
+
+.navbar-brand:hover .icon,
+.feature-icons span:hover.icon {
+    cursor: pointer;
+    animation-timing-function: cubic-bezier(0.8, 0.03, 0.73, 0.97);
+    animation-delay: .5s;
+    color: var(--icon-color__hover);
+}
+
+.feature-icons .icon:hover .fa-bug {
+    animation: fa-shake 2s;
 }
 
 .navbar-brand:hover .icon {
     animation: fa-flip 2s;
-    animation-timing-function: cubic-bezier(0.8, 0.03, 0.73, 0.97);
-    animation-delay: 0s;
-    color: #d3af37;
 }
 
 .dropdown-toggle {

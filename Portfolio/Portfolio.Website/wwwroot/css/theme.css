@@ -1,33 +1,27 @@
-﻿:root {    
+﻿:root {
     color-scheme: light;
     --background: white;
-    --font-color: #d1d1d1;
+    --font-color: #1e1e1e;
     --highlight: #f7f7f7;
     --highlight-2: #e2e3e5;
     --link: #0366d6;
     --icon-color: var(--font-color);
-
     --bs-primary: #d3af37 !important;
+    --icon-color__hover: #d3af37;
 }
 
 .dark-theme {
     color-scheme: dark;
     --background: #2d2d2d;
-    --font-color: white;
+    --font-color: #d9d9d9;
     --highlight: #393939;
     --highlight-2: #414648;
     --link: #3ca4ff;
-    --icon-color: #d3af37;
+    --icon-color: #d9d9d9;
 }
 
 .theme-toggle {
     position: relative;
-}
-
-.sun, .moon {
-    font-size: 1.5rem;
-    width: fit-content;
-    height: fit-content;
 }
 
 .moon {
@@ -55,12 +49,4 @@
 .animate-moon {
     opacity: 1;
     transform: translateY(0%) rotateZ(0deg);
-}
-
-    .animate-moon path {
-        fill: white;
-    }
-
-.animate-sun path {
-    fill: white;
 }
