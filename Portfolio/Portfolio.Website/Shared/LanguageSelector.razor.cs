@@ -19,8 +19,8 @@ namespace Portfolio.Website.Shared
         [Inject] private IStringLocalizer<LanguageSelector> Localization { get; set; }
 
         private Task<IJSObjectReference> _cultureModule;
-
         private IEnumerable<LanguageCodes> _supportedLanguages;
+        private bool _isMobileDeviceMode = false;
 
         public CultureInfo Culture
         {
@@ -31,8 +31,6 @@ namespace Portfolio.Website.Shared
 
                 _ = Task.Run(async () =>
                 {
-                    Console.WriteLine(@"Test");
-
                     var module = await CultureModule;
 
                     await module.InvokeVoidAsync("setCulture", value.Name);
@@ -47,7 +45,9 @@ namespace Portfolio.Website.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            OnCultureChanged += RefreshPage;
+            await JsRuntime.InvokeVoidAsync("setDotNetReferenceForLanguageSelector", DotNetObjectReference.Create(this));
+
+            OnCultureChanged += RefreshPageOnCultureChanged;
 
             var danishCulture = Localization["DanishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
             var englishCulture = Localization["EnglishCulture"].Value.Split(";", StringSplitOptions.TrimEntries);
@@ -63,14 +63,22 @@ namespace Portfolio.Website.Shared
             Culture = new CultureInfo(await module.InvokeAsync<string>("getCulture"));
         }
 
-        private void RefreshPage(object? sender, EventArgs e)
+        private void RefreshPageOnCultureChanged(object? sender, EventArgs e)
         {
             NavManager.NavigateTo(NavManager.Uri, true);
         }
 
         public void Dispose()
         {
-            OnCultureChanged -= RefreshPage;
+            OnCultureChanged -= RefreshPageOnCultureChanged;
+        }
+
+        [JSInvokable]
+        public void InitializeMobileDeviceMode(bool isMobile)
+        {
+            _isMobileDeviceMode = isMobile;
+
+            StateHasChanged();
         }
     }
 }

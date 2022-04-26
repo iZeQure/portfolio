@@ -21,16 +21,11 @@ namespace Portfolio.Website.Shared
 
         [Parameter] public RenderFragment ChildContent { get; set; }
 
-        private FeedbackModel _feedbackModel = new();
+        private readonly FeedbackModel _feedbackModel = new();
         private EditContext _context;
+        private IEnumerable<NavigationLink> _navLinks;
 
-        private IEnumerable<NavigationLink> NavigationLinks => new List<NavigationLink>()
-        {
-            new NavigationLink(NavLinkMatch.All,
-                "", LocalizerSidebarNav["Home"], new MarkupString("<i class='fa-solid fa-terminal'></i>")),
-            new NavigationLink(NavLinkMatch.Prefix,
-                "projects", LocalizerSidebarNav["Projects"], new MarkupString("<i class='fa-solid fa-code'></i>"))
-        };
+        private IEnumerable<NavigationLink> NavigationLinks => _navLinks;
 
         private Task<IJSObjectReference> SidebarNavModule => JSRunTime?.InjectJsObjectReference("import", "./js/sidebar.js");
 
@@ -40,6 +35,14 @@ namespace Portfolio.Website.Shared
 
         protected override async Task OnInitializedAsync()
         {
+            _navLinks = new List<NavigationLink>()
+            {
+                new NavigationLink(NavLinkMatch.All,
+                    "", LocalizerSidebarNav["Home"], new MarkupString("<i class='fa-solid fa-terminal'></i>")),
+                new NavigationLink(NavLinkMatch.Prefix,
+                    "projects", LocalizerSidebarNav["Projects"], new MarkupString("<i class='fa-solid fa-code'></i>"))
+            };
+
             _context = new EditContext(_feedbackModel);
             _context.EnableDataAnnotationsValidation();
 

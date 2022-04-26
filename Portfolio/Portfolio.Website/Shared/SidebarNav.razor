@@ -5,17 +5,30 @@
             <span class="d-none d-md-inline fs-4 navbar-text">@(GetSiteName)</span>
         </a>
         <hr class="my-1 my-md-2 mx-2 mx-md-0">
-        <ul class="nav nav-pills flex-column mb-auto">
-            @foreach (var nav in NavigationLinks)
-            {
-                <li class="nav-link">
-                    <NavLink Match=@nav.LinkMatch class="nav-link px-2 px-md-3" href=@nav.Uri>
-                        <span class="me-0 me-md-2">@nav.HtmlIcon</span>
-                        <span class="d-none d-md-inline">@nav.DisplayText</span>
-                    </NavLink>
-                </li>
-            }
-        </ul>
+
+        @if (NavigationLinks is null)
+        {
+            <div class="d-flex justify-content-center align-items-center h-100 gap-3">
+                <strong class="text-light">@LocalizerSidebarNav["LoadingMenu"]</strong>
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <ul class="nav nav-pills flex-column mb-auto">
+                @foreach (var nav in NavigationLinks)
+                {
+                    <li class="nav-link">
+                        <NavLink Match=@nav.LinkMatch class="nav-link px-2 px-md-3" href=@nav.Uri>
+                            <span class="me-0 me-md-2">@nav.HtmlIcon</span>
+                            <span class="d-none d-md-inline">@nav.DisplayText</span>
+                        </NavLink>
+                    </li>
+                }
+            </ul>
+        }
         <hr class="my-0 my-md-2 mx-2 mx-md-0">
         <div class="hstack gap-1 gap-md-2 flex-column flex-md-row justify-content-start justify-content-md-around p-1 p-md-0">
             <LanguageSelector />
@@ -38,25 +51,37 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Title</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Title</h5>
             </div>
             <div class="modal-body">
-                <EditForm EditContext="@FeedbackContext" OnValidSubmit="@SubmitFeedbackAsync" id="feedback-form">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" @bind="_feedbackModel.Name" />
-                        <label for="floatingInputGrid">Name</label>
-                        <ValidationMessage For="@(() => _feedbackModel.Name)" />
+                @if (FeedbackContext is null)
+                {
+                    <div class="d-flex justify-content-center align-items-center h-100 gap-3">
+                        <strong class="text-dark">@LocalizerSidebarNav["LoadingFeedback"]</strong>
+                        <div class="spinner-border text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
-                    <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" @bind="_feedbackModel.Message" />
-                        <label for="floatingTextarea">Feedback</label>
-                        <ValidationMessage For="@(() => _feedbackModel.Message)" />
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="ClearFeedback">Close</button>
-                        <button type="submit" class="btn btn-primary">Send Feedback</button>
-                    </div>
-                </EditForm>
+                }
+                else
+                {
+                    <EditForm EditContext="@FeedbackContext" OnValidSubmit="@SubmitFeedbackAsync" id="feedback-form">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" @bind="_feedbackModel.Name" />
+                            <label for="floatingInputGrid">Name</label>
+                            <ValidationMessage For="@(() => _feedbackModel.Name)" />
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" @bind="_feedbackModel.Message" />
+                            <label for="floatingTextarea">Feedback</label>
+                            <ValidationMessage For="@(() => _feedbackModel.Message)" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="ClearFeedback">Close</button>
+                            <button type="submit" class="btn btn-primary">Send Feedback</button>
+                        </div>
+                    </EditForm>
+                }
             </div>
         </div>
     </div>
