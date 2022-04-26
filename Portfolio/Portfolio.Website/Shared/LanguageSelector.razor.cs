@@ -54,8 +54,8 @@ namespace Portfolio.Website.Shared
 
             _supportedLanguages  = new List<LanguageCodes>
             {
-                new (code: danishCulture[0], displayName: danishCulture[1]),
-                new (code: englishCulture[0], displayName: englishCulture[1])
+                new (code: danishCulture[0], displayName: danishCulture[1], country: "🇩🇰"),
+                new (code: englishCulture[0], displayName: englishCulture[1], country: "🇺🇸")
             };
 
             var module = await CultureModule;
