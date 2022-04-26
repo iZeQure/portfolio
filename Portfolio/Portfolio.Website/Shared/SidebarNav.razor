@@ -1,27 +1,26 @@
 ﻿<div class="sidebar">
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark">
-        <a href="/" class="navbar-brand d-flex align-items-center mb-3 mb-md-0 g-0 me-md-auto text-white text-decoration-none">
-            @*<svg class="bi me-2" width="40" height="32"><use xlink:href="assets/icons/sprite-icons.svg#bootstrap" /></svg>*@
-            <span class="fs-1 icon me-2"><i class="fa-solid fa-code"></i></span>
-            <span class="fs-4 navbar-text">@(GetSiteName)</span>
+    <div class="d-flex flex-column flex-shrink-0 p-0 p-md-3 text-white bg-dark">
+        <a href="/" class="navbar-brand m-0 m-md-1 d-flex align-items-center justify-content-center justify-content-md-evenly text-white text-decoration-none">
+            <span class="fs-1 icon me-0 me-md-2"><i class="fa-solid fa-code"></i></span>
+            <span class="d-none d-md-inline fs-4 navbar-text">@(GetSiteName)</span>
         </a>
-        <hr>
+        <hr class="my-1 my-md-2 mx-2 mx-md-0">
         <ul class="nav nav-pills flex-column mb-auto">
             @foreach (var nav in NavigationLinks)
             {
                 <li class="nav-link">
-                    <NavLink Match=@nav.LinkMatch class="nav-link" href=@nav.Uri>
-                        <span class="me-2">@nav.HtmlIcon</span>
-                        @nav.DisplayText
+                    <NavLink Match=@nav.LinkMatch class="nav-link px-2 px-md-3" href=@nav.Uri>
+                        <span class="me-0 me-md-2">@nav.HtmlIcon</span>
+                        <span class="d-none d-md-inline">@nav.DisplayText</span>
                     </NavLink>
                 </li>
             }
         </ul>
-        <hr>
-        <div class="hstack gap-3">
+        <hr class="my-0 my-md-2 mx-2 mx-md-0">
+        <div class="hstack gap-1 gap-md-2 flex-column flex-md-row justify-content-start justify-content-md-around p-1 p-md-0">
             <LanguageSelector />
-            <div class="vr"></div>
-            @ChildContent
+            <div class="vr d-none d-md-block"></div>
+            <div class="order-first order-md-last">@ChildContent</div>
         </div>
     </div>
 </div>

@@ -61,6 +61,15 @@ namespace Portfolio.Website.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select display language.
+        /// </summary>
+        public static string AriaLabel {
+            get {
+                return ResourceManager.GetString("AriaLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to da-DK; Danish (Denmark).
         /// </summary>
         public static string DanishCulture {

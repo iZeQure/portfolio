@@ -14,5 +14,6 @@ export function updateTooltip() {
     const theme = document.getElementById('theme-tooltip');
     const tooltip = bootstrap.Tooltip.getOrCreateInstance(theme);
 
-    tooltip.show();
+    tooltip.hide();
+    tooltip.update();
 }
