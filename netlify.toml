@@ -3,6 +3,10 @@ publish = "prod/wwwroot"
 
 command = "dotnet workload install wasm-tools ; dotnet publish \"Portfolio/Portfolio.Website/Portfolio.Website.csproj\" -c Release -o prod"
 
+[context.deploy-preview]
+publish = "dev/wwwroot"
+command = "dotnet workload install wasm-tools ; dotnet build \"Portfolio/Portfolio.Website/Portfolio.Website.csproj\" --configuration Release ; dotnet publish \"Portfolio/Portfolio.Website/Portfolio.Website.csproj\" -c Release --no-build -o dev"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
