@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -20,10 +21,8 @@ namespace Portfolio.Website.Shared
 
         [Parameter] public RenderFragment ChildContent { get; set; }
 
-        private Task<IJSObjectReference> SidebarNavModule =>
-            JSRunTime?.InjectJsObjectReference("import", "./js/sidebar.js");
-
-        private string GetSiteName => LocalizerMainLayout["Name"];
+        private FeedbackModel _feedbackModel = new();
+        private EditContext _context;
 
         private IEnumerable<NavigationLink> NavigationLinks => new List<NavigationLink>()
         {
@@ -33,8 +32,17 @@ namespace Portfolio.Website.Shared
                 "projects", LocalizerSidebarNav["Projects"], new MarkupString("<i class='fa-solid fa-code'></i>"))
         };
 
+        private Task<IJSObjectReference> SidebarNavModule => JSRunTime?.InjectJsObjectReference("import", "./js/sidebar.js");
+
+        private EditContext FeedbackContext => _context;
+
+        private string GetSiteName => LocalizerMainLayout["Name"];
+
         protected override async Task OnInitializedAsync()
         {
+            _context = new EditContext(_feedbackModel);
+            _context.EnableDataAnnotationsValidation();
+
             try
             {
                 _ = await SidebarNavModule;
@@ -47,6 +55,21 @@ namespace Portfolio.Website.Shared
             {
                 Logger.LogCritical("Unhandled exception occurred.");
             }
+        }
+
+        private async Task SubmitFeedbackAsync()
+        {
+            Console.WriteLine("Form is submitted: {0} - {1}", _feedbackModel.Name, _feedbackModel.Message);
+
+            var feedback = await SidebarNavModule;
+
+            await feedback.InvokeVoidAsync("sendFeedback");
+        }
+
+        private void ClearFeedback()
+        {
+            _feedbackModel.Name = null;
+            _feedbackModel.Message = null;
         }
     }
 }

@@ -22,7 +22,13 @@
             <div class="vr d-none d-md-block"></div>
             <div class="gap-2 gap-md-1 order-first order-md-last d-flex flex-row flex-md-column align-items-center feature-icons">
                 @ChildContent
-                <span class="icon" data-bs-toggle="modal" data-bs-target="#feedbackModal"><i class="fa-solid fa-bug"></i></span>
+                <div class="position-relative">
+                    <span class="icon" data-bs-toggle="modal" data-bs-target="#feedbackModal" href="#feedback"><i class="fa-solid fa-bug"></i></span>
+                    <span class="position-absolute top-100 start-100 translate-middle badge badge-text-sm rounded-pill bg-warning text-dark">
+                        Beta
+                        <span class="visually-hidden">Experimental Feature</span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -32,25 +38,25 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="staticBackdropLabel">Title</h5>
             </div>
             <div class="modal-body">
-                <form name="feedback" method="POST" data-netlify="true">>
-                    <p>
-                        <label>Your Name: <input type="text" name="name" /></label>
-                    </p>
-                    <p>
-                        <label>Message: <textarea name="message"></textarea></label>
-                    </p>
-                    <p>
-                        <button type="submit">Send</button>
-                    </p>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
+                <EditForm EditContext="@FeedbackContext" OnValidSubmit="@SubmitFeedbackAsync" id="feedback-form">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" @bind="_feedbackModel.Name" />
+                        <label for="floatingInputGrid">Name</label>
+                        <ValidationMessage For="@(() => _feedbackModel.Name)" />
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" @bind="_feedbackModel.Message" />
+                        <label for="floatingTextarea">Feedback</label>
+                        <ValidationMessage For="@(() => _feedbackModel.Message)" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="ClearFeedback">Close</button>
+                        <button type="submit" class="btn btn-primary">Send Feedback</button>
+                    </div>
+                </EditForm>
             </div>
         </div>
     </div>

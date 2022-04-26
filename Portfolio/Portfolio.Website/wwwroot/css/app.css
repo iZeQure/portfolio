@@ -16,6 +16,14 @@ body {
     transition: all 1s cubic-bezier(0.8, 0.03, 0.73, 0.97);
 }
 
+.badge-text-sm {
+    font-size: 0.5em !important;
+}
+
+.text-dark {
+    color: #1e1e1e !important;
+}
+
 .vr,
 hr {
     color: var(--font-color);
