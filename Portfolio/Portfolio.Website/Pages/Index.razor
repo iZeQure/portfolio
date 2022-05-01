@@ -4,7 +4,34 @@
 
 <PageTitle>@GetPageTitle</PageTitle>
 
-Welcome to your new app.
+<!-- TODO: ## Fix image and content, or viewport changes ##
+    * Possibly show the image at top, on lower viewports.
+    * Make content scrollable on smaller viewports.
+    * Align content as start for first, then image secondary as center, or normal viewports.
+-->
+<div class="container">
+    <div class="row justify-content-evenly align-items-center text-start vh-100">
+        <div class="col-12 col-xl-7 text-center text-xl-start order-1">
+            <div class="shadow-sm p-3 mb-5 rounded">
+                <p class="text-primary fs-2">aliquet bibendum enim facilisis gravida</p>
+                <p class="text-primary fs-3">auctor eu augue</p>
+                <p class="text-primary fs-5">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Id donec ultrices tincidunt arcu non sodales neque.
+                </p>
+
+                <NavLink class="btn btn-secondary fw-bolder px-3 py-2 rounded-pill mt-3 mt-sm-2 mt-lg-4 mt-xl-5" href="/about" role="button" Match="NavLinkMatch.Prefix">
+                    More About Me
+                </NavLink>
+            </div>
+        </div>
+        <div class="col-12 col-xl-5 text-center order-0 order-xl-1">
+            <picture>
+                <source srcset="https://github.com/izequre.png" type="image/svg+xml">
+                <img src="https://github.com/izequre.png" class="img-fluid img-thumbnail rounded" alt="...">
+            </picture>
+        </div>
+    </div>
+</div>
 
 @code {
     private string GetPageTitle => $"{Loc["Title"]} - {MainLayoutLoc["Name"]}";

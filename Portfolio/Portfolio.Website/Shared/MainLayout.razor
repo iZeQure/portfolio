@@ -10,21 +10,25 @@
     <TwitterMeta Title="@(Name)" Description="@(Description)" Url="@(Url)" />
 </HeadContent>
 
-<main class="page @(ColorThemeCssClass)">
-    <SidebarNav>
-        <div id="theme-tooltip" class="theme-toggle" @onclick="@ToggleTheme" data-bs-toggle="tooltip" data-bs-placement="top" title="@TooltipTitle" data-bs-original-title="@TooltipTitle">
-            <div class="sun sun-logo @(!IsDarkTheme ? "animate-sun" : "")">
-                <span class="icon"><i class="fa-solid fa-sun"></i></span>
+<main class="@(ColorThemeCssClass)">
+    <section id="sidebar-nav">
+        <SidebarNav>
+            <div id="theme-tooltip" class="theme-toggle" @onclick="@ToggleTheme" data-bs-toggle="tooltip" data-bs-placement="top" title="@TooltipTitle" data-bs-original-title="@TooltipTitle">
+                <div class="sun sun-logo @(!IsDarkTheme ? "animate-sun" : "")">
+                    <span class="icon"><i class="fa-solid fa-sun"></i></span>
+                </div>
+                <div class="moon moon-logo @(IsDarkTheme ? "" : "animate-moon")">
+                    <span class="icon"><i class="fa-solid fa-moon"></i></span>
+                </div>
             </div>
-            <div class="moon moon-logo @(IsDarkTheme ? "" : "animate-moon")">
-                <span class="icon"><i class="fa-solid fa-moon"></i></span>
-            </div>
-        </div>
-    </SidebarNav>
+        </SidebarNav>
+    </section>
 
-    <div class="content container-fluid">
+    <div class="vr pretty-vr opacity-75"></div>
+
+    <section id="content" class="bg-primary vw-100">
         @Body
-    </div>
+    </section>
 </main>
 
 @code {

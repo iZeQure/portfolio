@@ -17,10 +17,10 @@
         }
         else
         {
-            <ul class="nav nav-pills flex-column mb-auto">
+            <ul class="nav nav-pills flex-column mb-auto justify-content-center align-content-center">
                 @foreach (var nav in NavigationLinks)
                 {
-                    <li class="nav-link">
+                    <li class="nav-item text-center text-md-start my-2">
                         <NavLink Match=@nav.LinkMatch class="nav-link px-2 px-md-3" href=@nav.Uri>
                             <span class="me-0 me-md-2">@nav.HtmlIcon</span>
                             <span class="d-none d-md-inline">@nav.DisplayText</span>
@@ -54,6 +54,10 @@
                 <h5 class="modal-title" id="staticBackdropLabel">Title</h5>
             </div>
             <div class="modal-body">
+                <div class="alert alert-primary" role="alert">
+                    This feature has been disabled for now.
+                </div>
+
                 @if (FeedbackContext is null)
                 {
                     <div class="d-flex justify-content-center align-items-center h-100 gap-3">
@@ -65,19 +69,19 @@
                 }
                 else
                 {
-                    <EditForm EditContext="@FeedbackContext" OnValidSubmit="@SubmitFeedbackAsync" id="feedback-form">
+                    <EditForm EditContext="@FeedbackContext" OnValidSubmit="@SubmitFeedback" id="feedback" name="feedback" netlify>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="floatingInputGrid" placeholder="name@example.com" @bind="_feedbackModel.Name" />
+                            <input type="text" name="name" class="form-control" id="floatingInputGrid" placeholder="name" @bind="_feedbackModel.Name" />
                             <label for="floatingInputGrid">Name</label>
                             <ValidationMessage For="@(() => _feedbackModel.Name)" />
                         </div>
                         <div class="form-floating mb-3">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" @bind="_feedbackModel.Message" />
+                            <textarea class="form-control" name="message" placeholder="Leave a comment here" id="floatingTextarea" @bind="_feedbackModel.Message" />
                             <label for="floatingTextarea">Feedback</label>
                             <ValidationMessage For="@(() => _feedbackModel.Message)" />
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="ClearFeedback">Close</button>
+                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Send Feedback</button>
                         </div>
                     </EditForm>

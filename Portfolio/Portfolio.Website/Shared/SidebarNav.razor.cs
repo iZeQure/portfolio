@@ -8,6 +8,7 @@ using Portfolio.Website.Extensions;
 using Portfolio.Website.Models;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Portfolio.Website.Shared
@@ -38,9 +39,11 @@ namespace Portfolio.Website.Shared
             _navLinks = new List<NavigationLink>()
             {
                 new NavigationLink(NavLinkMatch.All,
-                    "", LocalizerSidebarNav["Home"], new MarkupString("<i class='fa-solid fa-terminal'></i>")),
+                    "", LocalizerSidebarNav["Home"], new MarkupString("<i class='fa-solid fa-house-chimney'></i>")),
                 new NavigationLink(NavLinkMatch.Prefix,
-                    "projects", LocalizerSidebarNav["Projects"], new MarkupString("<i class='fa-solid fa-code'></i>"))
+                    "about", LocalizerSidebarNav["About"], new MarkupString("<i class='fa-solid fa-user-large'></i>")),
+                new NavigationLink(NavLinkMatch.Prefix,
+                    "projects", LocalizerSidebarNav["Projects"], new MarkupString("<i class='fa-solid fa-list-check'></i>"))
             };
 
             _context = new EditContext(_feedbackModel);
@@ -60,19 +63,15 @@ namespace Portfolio.Website.Shared
             }
         }
 
-        private async Task SubmitFeedbackAsync()
+        private void SubmitFeedback()
         {
-            Console.WriteLine("Form is submitted: {0} - {1}", _feedbackModel.Name, _feedbackModel.Message);
+            //Console.WriteLine("Form is submitted: {0} - {1}", _feedbackModel.Name, _feedbackModel.Message);
 
-            var feedback = await SidebarNavModule;
+            //var modelJson = JsonSerializer.Serialize(_feedbackModel, new JsonSerializerOptions { WriteIndented = true });
 
-            await feedback.InvokeVoidAsync("sendFeedback");
-        }
+            //var feedback = await SidebarNavModule;
 
-        private void ClearFeedback()
-        {
-            _feedbackModel.Name = null;
-            _feedbackModel.Message = null;
+            //await feedback.InvokeVoidAsync("sendFeedback", modelJson);
         }
     }
 }
