@@ -1,6 +1,11 @@
 ﻿main {
     display: flex;
     flex-direction: row;
+    overflow: hidden;
+}
+
+#content {
+    overflow-y: auto;
 }
 
 main .pretty-vr {

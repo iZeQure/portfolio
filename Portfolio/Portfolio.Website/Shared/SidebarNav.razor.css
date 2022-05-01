@@ -6,6 +6,12 @@
     overflow-y: hidden;
 }
 
+.sidebar ul {
+    height: 50vh  !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .sidebar .bg-dark {
     background-color: var(--background) !important;
 }
