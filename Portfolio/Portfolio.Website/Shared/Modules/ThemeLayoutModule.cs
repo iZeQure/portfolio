@@ -28,7 +28,7 @@ namespace Portfolio.Website.Shared.Modules
 
         protected override async Task OnInitializedAsync()
         {
-            await JsRuntime.InvokeVoidAsync("setMediaReference", DotNetObjectReference.Create(this));
+            await JsRuntime.InvokeVoidAsync("setDotNetReferenceForThemeSelector", DotNetObjectReference.Create(this));
         }
 
         protected async Task ToggleTheme()

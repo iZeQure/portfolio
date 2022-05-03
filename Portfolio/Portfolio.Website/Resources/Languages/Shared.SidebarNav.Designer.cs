@@ -95,5 +95,23 @@ namespace Portfolio.Website.Resources.Languages {
                 return ResourceManager.GetString("Home", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading feedback....
+        /// </summary>
+        public static string LoadingFeedback {
+            get {
+                return ResourceManager.GetString("LoadingFeedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading navigation....
+        /// </summary>
+        public static string LoadingMenu {
+            get {
+                return ResourceManager.GetString("LoadingMenu", resourceCulture);
+            }
+        }
     }
 }

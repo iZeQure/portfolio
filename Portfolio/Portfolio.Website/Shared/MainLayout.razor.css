@@ -1,8 +1,19 @@
 ﻿main {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
-    gap: .5em;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+#content {
+    overflow-y: auto;
+}
+
+main .pretty-vr {
+    background-color: var(--bg-secondary) !important;
+}
+
+main .bg-primary {
+    background-color: var(--bg-primary) !important;
 }
 
 .theme-toggle:hover .icon {

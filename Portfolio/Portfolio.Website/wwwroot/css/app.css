@@ -1,4 +1,5 @@
-﻿@import url(theme.css);
+﻿@import url(colors.css);
+@import url(theme.css);
 
 html {
     height: -webkit-fill-available;
@@ -10,15 +11,79 @@ body {
     transition: all 1s;
 }
 
+.vr,
+hr {
+    color: var(--font-color);
+}
+
+/*.bg-secondary {
+    background-color: var(--bg-secondary) !important;
+}*/
+
+.nav-pills .nav-link.active {
+    color: var(--gold) !important;
+}
+
+.nav-link {
+    font-size: 1.25rem;
+    color: var(--text-primary) !important;
+}
+
+    .nav-link:active,
+    .nav-link:hover,
+    .nav-link.active {
+        color: var(--gold) !important;
+        background-color: transparent !important;
+    }
+
+.text-primary {
+    color: var(--text-primary) !important;
+}
+
+.text-dark {
+    color: var(--gray-dark) !important;
+}
+
+.text-light {
+    color: var(--gray-light) !important;
+}
+
+.btn-secondary {
+    color: var(--gray-dark);
+    background-color: var(--gold);
+    border-color: var(--gold);
+}
+
+    .btn-secondary:active,
+    .btn-secondary:focus,
+    .btn-secondary:hover {
+        background-color: transparent !important;
+        color: var(--gold) !important;
+        border-color: var(--gold) !important;
+    }
+
+    .btn-secondary:focus {
+        box-shadow: 0 0 0 0.25rem rgb(211 175 55 / 50%) !important;
+    }
+
+.img-thumbnail {
+    background-color: var(--text-primary) !important;
+    border-color: var(--text-primary) !important;
+
+}
+
+#content img {
+    width: 300px;
+}
+
 .icon {
     font-size: 1.25rem;
     color: var(--icon-color);
     transition: all 1s cubic-bezier(0.8, 0.03, 0.73, 0.97);
 }
 
-.vr,
-hr {
-    color: var(--font-color);
+.badge-text-sm {
+    font-size: 0.5em !important;
 }
 
 .valid.modified:not([type=checkbox]) {

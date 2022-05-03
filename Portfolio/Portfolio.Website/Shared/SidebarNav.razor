@@ -1,28 +1,47 @@
 ﻿<div class="sidebar">
     <div class="d-flex flex-column flex-shrink-0 p-0 p-md-3 text-white bg-dark">
         <a href="/" class="navbar-brand m-0 m-md-1 d-flex align-items-center justify-content-center justify-content-md-evenly text-white text-decoration-none">
-            <span class="fs-1 icon me-0 me-md-2"><i class="fa-solid fa-code"></i></span>
-            <span class="d-none d-md-inline fs-4 navbar-text">@(GetSiteName)</span>
+            <span class="fs-1 icon me-0 me-md-2 p-2 p-md-0"><i class="fa-solid fa-code"></i></span>
+            <span class="d-none d-lg-inline fs-4 navbar-text">@(GetSiteName)</span>
         </a>
         <hr class="my-1 my-md-2 mx-2 mx-md-0">
-        <ul class="nav nav-pills flex-column mb-auto">
-            @foreach (var nav in NavigationLinks)
-            {
-                <li class="nav-link">
-                    <NavLink Match=@nav.LinkMatch class="nav-link px-2 px-md-3" href=@nav.Uri>
-                        <span class="me-0 me-md-2">@nav.HtmlIcon</span>
-                        <span class="d-none d-md-inline">@nav.DisplayText</span>
-                    </NavLink>
-                </li>
-            }
-        </ul>
+
+        @if (NavigationLinks is null)
+        {
+            <div class="d-flex justify-content-center align-items-center h-100 gap-3">
+                <strong class="text-light">@LocalizerSidebarNav["LoadingMenu"]</strong>
+                <div class="spinner-border text-light" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <ul class="nav nav-pills flex-column d-block h-25 d-lg-flex mb-auto justify-content-center align-content-center">
+                @foreach (var nav in NavigationLinks)
+                {
+                    <li class="nav-item text-center text-md-start my-2">
+                        <NavLink Match=@nav.LinkMatch class="nav-link px-2 px-md-3" href=@nav.Uri>
+                            <span>@nav.HtmlIcon</span>
+                            <span class="d-none d-md-inline">@nav.DisplayText</span>
+                        </NavLink>
+                    </li>
+                }
+            </ul>
+        }
         <hr class="my-0 my-md-2 mx-2 mx-md-0">
         <div class="hstack gap-1 gap-md-2 flex-column flex-md-row justify-content-start justify-content-md-around p-1 p-md-0">
             <LanguageSelector />
             <div class="vr d-none d-md-block"></div>
             <div class="gap-2 gap-md-1 order-first order-md-last d-flex flex-row flex-md-column align-items-center feature-icons">
                 @ChildContent
-                <span class="icon" data-bs-toggle="modal" data-bs-target="#feedbackModal"><i class="fa-solid fa-bug"></i></span>
+                <div class="position-relative">
+                    <span class="icon" data-bs-toggle="modal" data-bs-target="#feedbackModal" href="#feedback"><i class="fa-solid fa-bug"></i></span>
+                    <span class="position-absolute top-100 start-100 translate-middle badge badge-text-sm rounded-pill bg-warning text-dark d-none d-md-block">
+                        Beta
+                        <span class="visually-hidden">Experimental Feature</span>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -32,25 +51,41 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="staticBackdropLabel">Title</h5>
             </div>
             <div class="modal-body">
-                <form name="feedback" method="POST" data-netlify="true">>
-                    <p>
-                        <label>Your Name: <input type="text" name="name" /></label>
-                    </p>
-                    <p>
-                        <label>Message: <textarea name="message"></textarea></label>
-                    </p>
-                    <p>
-                        <button type="submit">Send</button>
-                    </p>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
+                <div class="alert alert-primary" role="alert">
+                    This feature has been disabled for now.
+                </div>
+
+                @if (FeedbackContext is null)
+                {
+                    <div class="d-flex justify-content-center align-items-center h-100 gap-3">
+                        <strong class="text-dark">@LocalizerSidebarNav["LoadingFeedback"]</strong>
+                        <div class="spinner-border text-dark" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <EditForm EditContext="@FeedbackContext" OnValidSubmit="@SubmitFeedback" id="feedback" name="feedback" netlify>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="name" class="form-control" id="floatingInputGrid" placeholder="name" @bind="_feedbackModel.Name" />
+                            <label for="floatingInputGrid">Name</label>
+                            <ValidationMessage For="@(() => _feedbackModel.Name)" />
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" name="message" placeholder="Leave a comment here" id="floatingTextarea" @bind="_feedbackModel.Message" />
+                            <label for="floatingTextarea">Feedback</label>
+                            <ValidationMessage For="@(() => _feedbackModel.Message)" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Send Feedback</button>
+                        </div>
+                    </EditForm>
+                }
             </div>
         </div>
     </div>

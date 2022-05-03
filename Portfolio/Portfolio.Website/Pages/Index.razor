@@ -2,10 +2,30 @@
 @inject IStringLocalizer<MainLayout> MainLayoutLoc
 @inject IStringLocalizer<Index> Loc
 
-<PageTitle>@GetPageTitle</PageTitle>
+<PageTitle>@PageTitle</PageTitle>
 
-Welcome to your new app.
+<div class="container">
+    <div class="row justify-content-evenly align-items-center text-start vh-100">
+        <div class="col-12 col-xl-7 text-center text-xl-start order-1">
+            <div class="shadow-sm p-3 mb-5 rounded">
+                <p class="text-primary fs-3">@Loc["Greeting"] <span>@Loc["WhoAmI"]</span></p>
+                <p class="text-primary fs-4">@Loc["WhatAmI"]</p>
+                <p class="text-primary fs-5">@Loc["Description"]</p>
+
+                <NavLink class="btn btn-secondary fw-bolder px-3 py-2 rounded-pill mt-3 mt-sm-2 mt-lg-4 mt-xl-5" href="/about" role="button" Match="NavLinkMatch.Prefix">
+                    @Loc["AboutButtonText"]
+                </NavLink>
+            </div>
+        </div>
+        <div class="col-12 col-xl-5 text-center order-0 order-xl-1">
+            <picture>
+                <source srcset="https://github.com/izequre.png" type="image/svg+xml">
+                <img src="https://github.com/izequre.png" class="img-fluid img-thumbnail rounded" alt="...">
+            </picture>
+        </div>
+    </div>
+</div>
 
 @code {
-    private string GetPageTitle => $"{Loc["Title"]} - {MainLayoutLoc["Name"]}";
+    private string PageTitle => $"{Loc["Title"]} - {MainLayoutLoc["Name"]}";
 }

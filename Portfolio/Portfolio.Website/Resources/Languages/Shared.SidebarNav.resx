@@ -132,4 +132,10 @@
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="LoadingFeedback" xml:space="preserve">
+    <value>Loading feedback...</value>
+  </data>
+  <data name="LoadingMenu" xml:space="preserve">
+    <value>Loading navigation...</value>
+  </data>
 </root>
